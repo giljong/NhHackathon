@@ -282,7 +282,7 @@
           addData(submitData) {
             this.listData.push(submitData);
             this.curPageNum = this.numOfPages;
-            axios.post('/:id', {id: this.id, company: this.subject, commnet: this.desc, nexcom: this.nexcom, catagorize: this.catagorize})
+            axios.post('/addP', {id: this.id, company: this.subject, commnet: this.desc, nexcom: this.nexcom, catagorize: this.catagorize})
             .then(res => { console.log(res.data) })
           },
           removeData() {
