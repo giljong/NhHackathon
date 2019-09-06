@@ -276,16 +276,14 @@
               nexcom: this.selectedData.nexcom,
               catagorize: this.selectedData.catagorize
             };
-            $.post("/addP", {'data' : [id: editData.id, subject: editData.subject, desc: editData.desc, nexcom: editData.nexcom, catagorize: editData.catagorize]});
-            .then(res => { console.log(res.data) })
+            $.post("/addP", {'data' : {id: editData.id, subject: editData.subject, desc: editData.desc, nexcom: editData.nexcom, catagorize: editData.catagorize}});
             this.listData.splice(this.curSelectIndex, 1, editData);
             this.closeDialog();
           },
           addData(submitData) {
             this.listData.push(submitData);
             this.curPageNum = this.numOfPages;
-            $.post("/addP", {'data' : [id: submitData.id, subject: submitData.subject, desc: submitData.desc, nexcom: submitData.nexcom, catagorize: submitData.catagorize]});
-            .then(res => { console.log(res.data) })
+            $.post("/addP", {'data' : {id: submitData.id, subject: submitData.subject, desc: submitData.desc, nexcom: submitData.nexcom, catagorize: submitData.catagorize}});
           },
           removeData() {
             this.listData.splice(this.curSelectIndex, 1);
