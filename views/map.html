@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=163abd3eab4e29e1e3779373a0a23c55&libraries=services"></script>
 <script type="text/javascript">
-
+  proplace = $("#searchLoc").val();
 	var ps = new daum.maps.services.Places();
 	//마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 	var infowindow = new daum.maps.InfoWindow({zIndex:1});
@@ -65,7 +65,7 @@
     url         : '/admin/addP',
     traditional : true,
     data        : {
-        location : place
+        location : proplace
     },
     success     : function(data) {
         alert(data);
