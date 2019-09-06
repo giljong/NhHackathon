@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/connection')
 
-router.get('/makeQR',(req,res) =>{
-    db.query('select * from ')
-    res.render('makeQR',{
-        url
-    });
+router.get('/:num/detail/makeQR',(req,res) =>{
+    db.query('select * from process where pnum=?',req.params.pnum,(err,result) =>{
+        if(err) console.log(err);
+        var url = "http://m.nonghyupmall.com/MC72010R/scRstDelivery.nh?searchTerm_main="+encodeURI(result[0].detail)+"&chanC=1101/"
+        res.render('makeQR.ejs',{
+            url
+        });
+    })
 }).get('/',(req,res) => {
     if(req.session.user === undefined){
         res.render('login')
