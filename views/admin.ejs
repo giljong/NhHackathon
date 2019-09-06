@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>관리자페이지</title>
+</head>
+
+<body>
+  <div id="placeHolder"></div>
+  <script type="text/javascript">
+    var qrcode = require('qrcode');
+    var typeNumber = 4;
+    var errorCorrectionLevel = 'L';
+    var qr = qrcode(typeNumber, errorCorrectionLevel);
+    qr.addData('Hi!');
+    qr.make();
+    document.getElementById('placeHolder').innerHTML = qr.createImgTag();
+  </script>
+</body>
