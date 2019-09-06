@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/connection')
+const moment = require('moment');
 
 router.get('/:num/detail/makeQR',(req,res) =>{
     db.query('select * from process where pnum=?',req.params.pnum,(err,result) =>{
@@ -47,8 +48,21 @@ router.get('/:num/detail/makeQR',(req,res) =>{
     } = req.body
     db.query('select * from product where pnum = ? order by cnt limit 1',req.params.num,(err,result) =>{
         if(err) console.log(err);
-        db.query('insert into product (cnt, addr, group, pnum) values(?,?,?,?)',[result[0].cnt+1, address, req.session.group, req.params.num]);
+        var date = moment().format(YYYY년MM월DD일HH시);
+        db.query('insert into product (cnt, addr, group, pnum,checkP) values(?,?,?,?,?)',[result[0].cnt+1, address, req.session.group, req.params.num,date]);
         db.query('update process set group = ? where pnum = ?',[next,req.params.num]);
+    })
+}).get('/addP',(req,res) => {
+    res.render('addP.ejs')  
+}).post('/addP',(req,res) =>{
+    const {
+        next,category,detail
+    } = req.body
+    var date = moment().format(YYYY년MM월DD일HH시);
+    db.query('select * from process order by pnum desc limit 1',(err,result)=> {
+        if(err) console.log(err)
+        db.query('insert into process (pnum,cate,detail,group) values(?,?,?,?)',[result[0].pnum+1,category,detail,next]);
+        db.query('insert into product (group, pnum,addr,cnt,checkP) values (?,?,?,?,?)',[req.session.group,result[0].pnum+1,address,1,date]);
     })
 })
 

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 router.get('/:pnum',(req,res) =>{
-    /*if(req.params.pnum === undefined)
-        res.render("404.ejs");
+    if(req.params.pnum === undefined)
+        res.send('잘못된 접근입니다.');
     else{
         db.query('select * from product where pnum = ? order by cnt desc',req.params.pnum,(err,result) =>{
             if(err) console.log(err);
@@ -18,7 +18,6 @@ router.get('/:pnum',(req,res) =>{
             })
         })
     }
-    */
 })
 
 module.exports = router;
