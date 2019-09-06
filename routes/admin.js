@@ -32,6 +32,21 @@ router.get('/makeQR',(req,res) =>{
 			})
         }
     })
+}).get('/detail/:num',(req,res) =>{
+    if(req.params.num === undefined)
+        res.redirect('/admin');
+    else{
+        res.render('Check.ejs');
+    }
+}).post('/detail/:num',(req,res) => {
+    const {
+        next, address
+    } = req.body
+    db.query('select * from product where pnum = ? order by cnt limit 1',req.params.num,(err,result) =>{
+        if(err) console.log(err);
+        db.query('insert into product (cnt, addr, group, pnum) values(?,?,?,?)',[result[0].cnt+1, address, req.session.group, req.params.num]);
+        db.query('update process set group = ? where pnum = ?',[next,req.params.num]);
+    })
 })
 
 module.exports = router;

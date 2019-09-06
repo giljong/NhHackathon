@@ -19,7 +19,7 @@ CREATE TABLE Process(
 
 CREATE TABLE Product(
     Cnt INT,
-    Cpoint varchar(100),
     Pnum varchar(100),
-    Group varchar(100)
+    Group varchar(100),
+    Addr varchar(100)
 );
