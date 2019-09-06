@@ -92,6 +92,20 @@
                               required>
                 </v-text-field>
               </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                              label="Next Company"
+                              v-model="newData.nexcom"
+                              required>
+                </v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                              label="Catagorize"
+                              v-model="newData.catagorize"
+                              required>
+                </v-text-field>
+              </v-flex>
             </v-layout>
           </v-container>
           <v-btn slot="negative-button"
@@ -201,12 +215,16 @@
             newData: {
               id: Number,
               subject: '',
-              desc: ''
+              desc: '',
+              nexcom:'',
+              catagorize: ''
             },
             selectedData: {
               id: Number,
               subject: '',
-              desc: ''
+              desc: '',
+              nexcom: '',
+              catagorize: ''
             }
           }
         },
@@ -241,7 +259,9 @@
             const submitData = {
               id: this.newData.id,
               subject: this.newData.subject,
-              desc: this.newData.desc
+              desc: this.newData.desc,
+              nexcom: this.newData.nexcom,
+              catagorize: this.newData.catagorize
             };
 
             this.addData(submitData);
@@ -252,7 +272,9 @@
             const editData = {
               id: this.selectedData.id,
               subject: this.selectedData.subject,
-              desc: this.selectedData.desc
+              desc: this.selectedData.desc,
+              nexcom: this.selectedData.nexcom,
+              catagorize: this.selectedData.catagorize
             };
             this.listData.splice(this.curSelectIndex, 1, editData);
             this.closeDialog();
@@ -260,7 +282,7 @@
           addData(submitData) {
             this.listData.push(submitData);
             this.curPageNum = this.numOfPages;
-            axios.post('/:id', {id: this.id, company: this.subject, commnet: this.desc}) 
+            axios.post('/:id', {id: this.id, company: this.subject, commnet: this.desc, nexcom: this.nexcom, catagorize: this.catagorize})
             .then(res => { console.log(res.data) })
           },
           removeData() {
@@ -286,7 +308,8 @@
             this.selectedData.id = this.listData[this.curSelectIndex].id;
             this.selectedData.subject = this.listData[this.curSelectIndex].subject;
             this.selectedData.desc = this.listData[this.curSelectIndex].desc;
-
+            this.selectedData.nexcom = this.listData[this.curSelectIndex].nexcom;
+            this.selectedData.catagorize = this.listData[this.curSelectIndex].catagorize;
             this.editDialog = true;
           },
           calIndex(index) {
