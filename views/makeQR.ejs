@@ -1,0 +1,20 @@
+<html>
+<body>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="../src/jquery.qrcode.js"></script>
+<script type="text/javascript" src="../src/qrcode.js"></script>
+
+<div id="gcDiv"></div>
+
+<script>
+    var url = <%- JSON.stringify(url) %>;
+    jQuery("#gcDiv").qrcode({   //qrcode 시작
+        render : "table",      //table, canvas 형식 두 종류가 있다. 
+        width : 100,            //넓이 조절
+        height : 100,           //높이 조절
+        text   : url     //QR코드에 실릴 문자열
+    });
+</script>
+
+</body>
+</html>

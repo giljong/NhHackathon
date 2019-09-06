@@ -3,11 +3,11 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const session = require('express-session');
-//const indexRouter = require('./routes/index');
-const loginRouter = require('./routes/login');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+
 const adminRouter = require('./routes/admin');
+const indexRouter = require('./routes/index');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
@@ -18,7 +18,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-//app.use('/', indexRouter);
+app.use('/', indexRouter);
 app.use('/admin',adminRouter);
 app.set('view engine', 'ejs');
 
