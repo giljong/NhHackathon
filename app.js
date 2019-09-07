@@ -37,10 +37,11 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('404.ejs');
+  res.render('404');
 });
 
-app.listen(3000, "0.0.0.0", () => {
+
+app.listen(3000, () => {
   console.log("connect");
 });
 

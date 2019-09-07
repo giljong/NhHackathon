@@ -4,22 +4,23 @@ CREATE DATABASE dawon;
 USE dawon;
 
 CREATE TABLE Users(
-    ID varchar(100),
-    PW varchar(100),
-    Gname varchar(100)
+    ID VARCHAR(100),
+    PW VARCHAR(100),
+    Gr VARCHAR(100)
 );
 
 CREATE TABLE Process(
-    Pnum varchar(100),
-    Group varchar(100),
-    Flag INT,
-    Cate varchar(100),
-    Detail varchar(100)
+    Pnum int(100),
+    Gr VARCHAR(100),
+    Flag int,
+    Cate VARCHAR(100),
+    Addr VARCHAR(100)
 );
 
 CREATE TABLE Product(
-    Cnt INT,
-    Pnum varchar(100),
-    Group varchar(100),
-    Addr varchar(100)
+    Cnt int,
+    Pnum int(100),
+    Gr VARCHAR(100),
+    Addr VARCHAR(100),
+    CheckP VARCHAR(100)
 );
