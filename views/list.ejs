@@ -85,6 +85,12 @@
                 </v-text-field>
               </v-flex>
               <v-flex xs12>
+                <v-text-field label="Next Company"
+                              v-model="newData.nexcom"
+                              required>
+                </v-text-field>
+              </v-flex>
+              <v-flex xs12>
                 <v-text-field label="Address"
                               v-model="newData.address"
                               required>
@@ -201,6 +207,7 @@
               subject: '',
               desc: '',
               address:'',
+              nexcom: '',
               catagorize: ''
             },
             selectedData: {
@@ -208,12 +215,13 @@
               subject: '',
               desc: '',
               address: '',
+              nexcom: '',
               catagorize: ''
             }
           }
         },
         created() {
-           this.axios.get('/admin/list')
+           this.axios.get("/admin/list")
              .then((response) => {
                this.listData = response.data;
              console.log(this.listData);
@@ -244,6 +252,7 @@
               subject: this.newData.subject,
               desc: this.newData.desc,
               address: this.newData.address,
+              nexcom: this.newData.nexcom,
               catagorize: this.newData.catagorize
             };
 
@@ -257,6 +266,7 @@
               subject: this.selectedData.subject,
               desc: this.selectedData.desc,
               address: this.selectedData.address,
+              nexcom: this.newData.nexcom,
               catagorize: this.selectedData.catagorize
             };
             axios.post("/admin/addP", {data : {address: editData.address, subject: editData.subject, catagorize: editData.catagorize}});
@@ -266,7 +276,7 @@
           addData(submitData) {
             this.listData.push(submitData);
             this.curPageNum = this.numOfPages;
-            axios.post("/admin/addP", {data : {address: submitData.address, subject: submitData.subject, catagorize: submitData.catagorize}});
+            axios.post("/admin/addP", {data : {nexcom: submitData.nexcom, address: submitData.address, subject: submitData.subject, catagorize: submitData.catagorize}});
           },
           removeData() {
             this.listData.splice(this.curSelectIndex, 1);
