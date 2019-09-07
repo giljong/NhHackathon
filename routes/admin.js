@@ -8,8 +8,7 @@ router.get('/list',(req,res) => {
         res.redirect('/admin/login')
     }
     else{
-        db.query('select * from product where gr = ?',req.session.gr,(err,result) => {
-            console.log(result);
+        db.query('select * from process where gr = ?',req.session.gr,(err,result) => {
             if(err) console.log(err);
             var subject=[];
             var id = [];
@@ -17,19 +16,20 @@ router.get('/list',(req,res) => {
             var address = [];
             var categorize = 1;
             for(var i = 0;i<result.length;i++){
-                subject.push(result[i].subject);
+                subject.push(result[i].Cate);
                 id.push(result[i].Pnum);
                 address.push(result[i].Addr)
             }
-            console.log(subject)
-            res.render('list',{
+            data = {
                 id,
                 subject,
                 desc,
                 address,
                 categorize
+            }
+            res.render('list',{
+                data
             })
-        //res.send('아무튼 리스트임')
         })
 
     }
@@ -37,18 +37,23 @@ router.get('/list',(req,res) => {
 })
 
 router.get('/makeQR',(req,res) =>{
-    /*db.query('select * from process where pnum=?',req.params.pnum,(err,result) =>{
+    /*db.query('select * from product where Pnum = ?',req.params.num,(err,result) =>{
         if(err) console.log(err);
-        var url = "http://m.nonghyupmall.com/MC72010R/scRstDelivery.nh?searchTerm_main="+encodeURI(result[0].detail)+"&chanC=1101/"
+        if(result.length === 0)
+            res.redirect('/admin/list');
+        else{
+            var date = moment().format("YYYY/MM/DD/HH시");
+            var url = "http://54.249.42.17:3000/"+req.params.num;
+            db.query('insert into product (cnt, addr, gr, pnum,checkP) values(?,?,?,?,?)',[2, "농협", req.session.gr, req.params.num,date])
+            res.render('makeQR.ejs',{
+                url : url
+            })
+            console.log(2222)
+        }*/
+        var url = "http://54.249.42.17:3000/2"
         res.render('makeQR.ejs',{
-            url
-        });
-    })
-    */
-    var url = "http://m.nonghyupmall.com/MC72010R/scRstDelivery.nh?searchTerm_main="+encodeURI("쌀")+"&chanC=1101/"
-        res.render('makeQR.ejs',{
-            url
-        });
+                url : url
+        })
     
 }).post('/login',(req,res) =>{
     db.query('select * from users where id = ? and pw = ?',[req.body.id,req.body.pw],(err,result) =>{
@@ -92,6 +97,12 @@ router.get('/makeQR',(req,res) =>{
     })
 }).get('/login',(req,res) =>{
     res.render('login')
+}).post('/search',(req,res) => {
+    var url = '/admin/'+req.body.search+'/makeQR';
+    console.log(url)
+    res.render('search',{
+        url
+    });
 })
 
 module.exports = router;

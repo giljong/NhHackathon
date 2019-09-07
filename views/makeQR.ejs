@@ -7,9 +7,10 @@
 <div id="gcDiv"></div>
 
 <script>
+    <%console.log(url)%>
     var url = <%- JSON.stringify(url) %>;
     jQuery("#gcDiv").qrcode({   //qrcode 시작
-        render : "table",      //table, canvas 형식 두 종류가 있다. 
+        render : "canvas",      //table, canvas 형식 두 종류가 있다. 
         width : 100,            //넓이 조절
         height : 100,           //높이 조절
         text   : url     //QR코드에 실릴 문자열
