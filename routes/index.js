@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
-router.get('/:pnum',(req,res) =>{
-    if(req.params.pnum === undefined)
-        res.send('잘못된 접근입니다.');
-    else{
-        db.query('select * from product where pnum = ? order by cnt desc',req.params.pnum,(err,result) =>{
+router.get('/qr/:pnum',(req,res) =>{
+       /* db.query('select * from product where pnum = ? order by cnt desc',req.params.pnum,(err,result) =>{
             if(err) console.log(err);
             db.query('select * from process where pnum = ?',(req.params.pnum),(error,results) =>{
                 if(error) console.log(error);
@@ -16,8 +13,11 @@ router.get('/:pnum',(req,res) =>{
                     })
                 })
             })
-        })
-    }
+        })*/
+        res.render('index.ejs')
+        console.log('?')
+}).get('/map',(req,res)=>{
+    res.render('map');
 })
 
 module.exports = router;
