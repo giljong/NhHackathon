@@ -213,11 +213,11 @@
           }
         },
         created() {
-          // this.axios.get('http://localhost:8080/server/listTest.json')
-          //   .then((response) => {
-          //     this.listData = response.data;
-          //     console.log(this.listData);
-          //   });
+           this.axios.get('/admin/list')
+             .then((response) => {
+               this.listData = response.data;
+             console.log(this.listData);
+             });
           this.listData = productdata;
         },
         computed: {
