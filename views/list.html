@@ -285,7 +285,7 @@
           addData(submitData) {
             this.listData.push(submitData);
             this.curPageNum = this.numOfPages;
-            axios.post("/admin/addP", {data : {address: editData.address, subject: submitData.subject, nexcom: submitData.nexcom, catagorize: submitData.catagorize}});
+            axios.post("/admin/addP", {data : {address: submitData.address, subject: submitData.subject, nexcom: submitData.nexcom, catagorize: submitData.catagorize}});
           },
           removeData() {
             this.listData.splice(this.curSelectIndex, 1);
