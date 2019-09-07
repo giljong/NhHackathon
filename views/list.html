@@ -20,9 +20,15 @@
   <div id="app">
   <v-app id="list-sample">
       <v-flex sm6 offset-sm3>
-        <v-text-field label="Search Data..."
-                      v-model="search">
-        </v-text-field>
+        <v-flex xs12>
+          <v-text-field
+            ref="search"
+            v-model="search"
+            label="Private Code"
+            required
+          ></v-text-field>
+        </v-flex>
+        <v-btn color="red" text @click="done">Done</v-btn>
         <v-list two-line
                 v-for="(listItem, index) in calData"
                 :key="index">
@@ -221,7 +227,7 @@
           }
         },
         created() {
-           this.axios.get("/admin/list")
+           axios.get("/admin/list")
              .then((response) => {
                this.listData = response.data;
              console.log(this.listData);
@@ -260,6 +266,14 @@
             this.closeDialog();
             this.clearForm();
           },
+          done() {
+            const data = {
+  				    search: this.search;
+  					}
+  					this.$http.post("/admin/search", data).then(result => {
+  						console.log(result.data)
+  					});
+          },
           editData() {
             const editData = {
               id: this.selectedData.id,
@@ -272,6 +286,9 @@
             axios.post("/admin/addP", {data : {address: editData.address, subject: editData.subject, catagorize: editData.catagorize}});
             this.listData.splice(this.curSelectIndex, 1, editData);
             this.closeDialog();
+          },
+          search() {
+            axios.post("/admin/search", {data : {search: data.data}});
           },
           addData(submitData) {
             this.listData.push(submitData);
