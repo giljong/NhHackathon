@@ -90,13 +90,6 @@
                               required>
                 </v-text-field>
               </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                              label="Next Company"
-                              v-model="newData.nexcom"
-                              required>
-                </v-text-field>
-              </v-flex>
             </v-layout>
           </v-container>
           <v-btn slot="negative-button"
@@ -136,13 +129,6 @@
                 <v-text-field
                   label="Address"
                   v-model="selectedData.address"
-                  required>
-                </v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  label="Next Company"
-                  v-model="selectedData.nexcom"
                   required
                   @keydown.enter="editData">
                 </v-text-field>
@@ -214,7 +200,6 @@
               id: Number,
               subject: '',
               desc: '',
-              nexcom:'',
               address:'',
               catagorize: ''
             },
@@ -222,7 +207,6 @@
               id: Number,
               subject: '',
               desc: '',
-              nexcom: '',
               address: '',
               catagorize: ''
             }
@@ -260,7 +244,6 @@
               id: this.newData.id,
               subject: this.newData.subject,
               desc: this.newData.desc,
-              nexcom: this.newData.nexcom,
               address: this.newData.address,
               catagorize: this.newData.catagorize
             };
@@ -274,18 +257,17 @@
               id: this.selectedData.id,
               subject: this.selectedData.subject,
               desc: this.selectedData.desc,
-              nexcom: this.selectedData.nexcom,
               address: this.selectedData.address,
               catagorize: this.selectedData.catagorize
             };
-            axios.post("/admin/addP", {data : {address: editData.address, subject: editData.subject, nexcom: editData.nexcom, catagorize: editData.catagorize}});
+            axios.post("/admin/addP", {data : {address: editData.address, subject: editData.subject, catagorize: editData.catagorize}});
             this.listData.splice(this.curSelectIndex, 1, editData);
             this.closeDialog();
           },
           addData(submitData) {
             this.listData.push(submitData);
             this.curPageNum = this.numOfPages;
-            axios.post("/admin/addP", {data : {address: submitData.address, subject: submitData.subject, nexcom: submitData.nexcom, catagorize: submitData.catagorize}});
+            axios.post("/admin/addP", {data : {address: submitData.address, subject: submitData.subject, catagorize: submitData.catagorize}});
           },
           removeData() {
             this.listData.splice(this.curSelectIndex, 1);
@@ -310,7 +292,6 @@
             this.selectedData.id = this.listData[this.curSelectIndex].id;
             this.selectedData.subject = this.listData[this.curSelectIndex].subject;
             this.selectedData.desc = this.listData[this.curSelectIndex].desc;
-            this.selectedData.nexcom = this.listData[this.curSelectIndex].nexcom;
             this.selectedData.address = this.listData[this.curSelectIndex].address;
             this.selectedData.catagorize = this.listData[this.curSelectIndex].catagorize;
             this.editDialog = true;
