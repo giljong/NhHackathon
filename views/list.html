@@ -268,9 +268,9 @@
           },
           done() {
             const data = {
-  				    search: this.search;
+  				    search: this.search
   					}
-  					this.$http.post("/admin/search", data).then(result => {
+  					axios.post("/admin/search", data).then(result => {
   						console.log(result.data)
   					});
           },
